@@ -23,6 +23,17 @@ link_libraries(time_measurement) # use this lib
 
 ## Usage
 
+### EXPR_MEASURE
+
+measure the execution time of a line of exprssion
+
+```cpp
+// This will measure the exetion time of std::cout
+int main () {
+    EXPR_MEASURE(std::cout << "Hello World" << std::endl;)
+}
+```
+
 ### BLOCK_MEASURE
 
 measure a block, for example a function
