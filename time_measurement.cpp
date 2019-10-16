@@ -1,5 +1,4 @@
 #include "time_measurement.h"
-#include "common/utility/path.h"
 
 #include <cassert>
 #include <ctime>
@@ -9,8 +8,6 @@
 #include <mutex>
 #include <sstream>
 #include <thread>
-
-#include <QDir>
 
 namespace TM {
 
@@ -45,14 +42,7 @@ void PrintExecutionResult(const TMString &name, const TMTimePoint start_time) {
   std::tm time_info;
   GetLocalTime(std::chrono::system_clock::to_time_t(stop_time_point), time_info);
 
-  //  std::cout << std::put_time(&time_info, "%x %X")  // date time
-  //            << " [" << name << "] "
-  //            << "execution time: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop_time_point - start_time).count() <<
-  //            "ms\n";
-
-  static std::ofstream tm_log(
-    path::GetAppDataDir() + QDir::separator().toLatin1() + "log" + QDir::separator().toLatin1() + "time_measurement.log",
-    std::ofstream::app);
+  static std::ofstream tm_log("time_measurement.log",std::ofstream::app);
   static std::mutex    log_mutex;
   assert(tm_log.is_open());
 
