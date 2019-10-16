@@ -9,5 +9,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: get dev tool
+      run: dev_tool.bat
     - name: make
       run: md build && cd build && cmake -G"NMake Makefiles" .. && nmake
