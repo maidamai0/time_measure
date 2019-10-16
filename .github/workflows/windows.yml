@@ -1,0 +1,19 @@
+name: Windows
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: make directory
+      run: md build
+    - name: change directory
+      run: cd build
+    - name: cmake
+      run: cmake -G"NMake Makefiles" ..
+    - name: make
+      run: nmake
