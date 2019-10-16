@@ -10,6 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: call dev prompt
-      run: dir && dev_tools.bat
+      run: dir && dev_tool.bat
     - name: make
       run: md build && cd build && cmake -G"NMake Makefiles" .. && nmake
