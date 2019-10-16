@@ -28,7 +28,7 @@ void GetLocalTime(const time_t t, TMTimeStruct &tm) {
 #ifdef _WIN32
   localtime_s(&tm, &t);
 #else
-  localtime_r(&tm, &t);
+  localtime_r(&t, &tm);
 #endif
 }
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.2)
 
 project(time_measuremt)
 add_library(time_measurement time_measurement.cpp)
