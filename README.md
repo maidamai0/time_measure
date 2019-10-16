@@ -1,5 +1,8 @@
 # Time Measurement tool for c++ program
 
+![](https://github.com/maidamai0/time_measure/workflows/Linux/badge.svg)
+![](https://github.com/maidamai0/time_measure/workflows/Windows/badge.svg)
+
 ## Build
 
 ```shell
