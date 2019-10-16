@@ -54,13 +54,13 @@ measure execution time between theset two maco with the same ID
 ```cpp
 // This will measure the time between fun to fun1
 void fun() {
-    MEASURE_START(m1)
+    MEASURE_START("m1")
     // do some job
 }
 
 void fun1 () {
     // do some job
-    MEASURE_STOP(m1)
+    MEASURE_STOP("m1")
 }
 
 int main () {
