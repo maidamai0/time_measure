@@ -9,5 +9,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: call dev prompt
+      run: "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\Tools\VsDevCmd.bat"
     - name: make
       run: md build && cd build && cmake -G"NMake Makefiles" .. && nmake
