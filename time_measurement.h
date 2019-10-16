@@ -1,11 +1,9 @@
 /**
  * @file time_measurement.h
- * @author tonghao.yuan (tonghao.yuan@csdental.com)
+ * @author tonghao.yuan
  * @brief functions for measuring execute time of a snippet of code
  * @version 0.1
  * @date 2019-09-19
- *
- * @copyright Copyright (c) 2019 Carestream Dental,LLC. All Rights Reserved
  *
  */
 
