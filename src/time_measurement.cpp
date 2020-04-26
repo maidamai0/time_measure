@@ -1,4 +1,4 @@
-#include "time_measurement.h"
+#include "time_measure/time_measurement.h"
 
 #include <cassert>
 #include <ctime>
@@ -32,25 +32,28 @@ void GetLocalTime(const time_t t, TMTimeStruct &tm) {
 #endif
 }
 
-TMTimePoint GetCurrentTime() {
-  return TMClock::now();
-}
+TMTimePoint GetCurrentTime() { return TMClock::now(); }
 
 void PrintExecutionResult(const TMString &name, const TMTimePoint start_time) {
   auto stop_time_point = GetCurrentTime();
 
   std::tm time_info;
-  GetLocalTime(std::chrono::system_clock::to_time_t(stop_time_point), time_info);
+  GetLocalTime(std::chrono::system_clock::to_time_t(stop_time_point),
+               time_info);
 
-  static std::ofstream tm_log("time_measurement.log",std::ofstream::app);
-  static std::mutex    log_mutex;
+  static std::ofstream tm_log("time_measurement.log", std::ofstream::app);
+  static std::mutex log_mutex;
   assert(tm_log.is_open());
 
   {
     std::lock_guard<std::mutex> guard(log_mutex);
-    tm_log << std::put_time(&time_info, "%Y-%m-%d %H:%M:%S")  // date time
+    tm_log << std::put_time(&time_info, "%Y-%m-%d %H:%M:%S") // date time
            << " [\"" << name << "\"] "
-           << "execution time: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop_time_point - start_time).count() << "ms\n";
+           << "execution time: "
+           << std::chrono::duration_cast<std::chrono::milliseconds>(
+                  stop_time_point - start_time)
+                  .count()
+           << "ms\n";
     tm_log.flush();
   }
 }
@@ -62,13 +65,11 @@ TMString GetComplexName(TMString &&original_name) {
 }
 
 BlockMeasurement::BlockMeasurement(TMString &&name) {
-  name_   = GetComplexName(std::move(name));
+  name_ = GetComplexName(std::move(name));
   start_ = GetCurrentTime();
 }
 
-BlockMeasurement::~BlockMeasurement() {
-  PrintExecutionResult(name_, start_);
-}
+BlockMeasurement::~BlockMeasurement() { PrintExecutionResult(name_, start_); }
 
 GeneralTimeMeasurement &GeneralTimeMeasurement::Instance() {
   static GeneralTimeMeasurement instance;
@@ -77,16 +78,18 @@ GeneralTimeMeasurement &GeneralTimeMeasurement::Instance() {
 
 void GeneralTimeMeasurement::Start(std::string &&name) {
   // insert start time
-  const auto it = measurement_map_.insert(std::make_pair(GetComplexName(std::move(name)), GetCurrentTime()));
+  const auto it = measurement_map_.insert(
+      std::make_pair(GetComplexName(std::move(name)), GetCurrentTime()));
   assert(it.second && "name should be unique");
 }
 
 void GeneralTimeMeasurement::Stop(std::string &&name) {
   auto it = measurement_map_.find(GetComplexName(std::move(name)));
-  assert(it != measurement_map_.end() && "you should call Start with the same name before call Stop");
+  assert(it != measurement_map_.end() &&
+         "you should call Start with the same name before call Stop");
   PrintExecutionResult(it->first, it->second);
 
   measurement_map_.erase(it);
 }
 
-}  // namespace TM
+} // namespace TM
