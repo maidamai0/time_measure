@@ -41,7 +41,7 @@ void PrintExecutionResult(const TMString &name, const TMTimePoint start_time) {
   GetLocalTime(std::chrono::system_clock::to_time_t(stop_time_point),
                time_info);
 
-  static std::ofstream tm_log("time_measurement.log", std::ofstream::app);
+  static std::ofstream tm_log("time_measurement.log", std::ofstream::trunc);
   static std::mutex log_mutex;
   assert(tm_log.is_open());
 
